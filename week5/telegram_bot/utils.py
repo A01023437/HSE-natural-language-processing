@@ -12,7 +12,7 @@ RESOURCE_PATH = {
     'TAG_CLASSIFIER': 'trained/tag_classifier.pkl',
     'TFIDF_VECTORIZER': 'trained/tfidf_vectorizer.pkl',
     'THREAD_EMBEDDINGS_FOLDER': 'trained/tags_embeddings',
-    'WORD_EMBEDDINGS': 'trained/starspace_embeddings.tsv',
+    'WORD_EMBEDDINGS': 'trained/starspace_embedding.tsv',
 }
 
 
