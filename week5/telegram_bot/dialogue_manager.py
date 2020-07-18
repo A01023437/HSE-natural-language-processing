@@ -22,9 +22,11 @@ class ThreadRanker(object):
         thread_ids, thread_embeddings = self.__load_embeddings_by_tag(tag_name)
 
         # HINT: you have already implemented a similar routine in the 3rd assignment.
-        
-        question_vec = #### YOUR CODE HERE ####
-        best_thread = #### YOUR CODE HERE ####
+
+        #### YOUR CODE HERE ####
+        question_vec =
+        #### YOUR CODE HERE ####
+        best_thread =
         
         return thread_ids[best_thread]
 
@@ -60,24 +62,30 @@ class DialogueManager(object):
 
         # Recognize intent of the question using `intent_recognizer`.
         # Don't forget to prepare question and calculate features for the question.
-        
-        prepared_question = #### YOUR CODE HERE ####
-        features = #### YOUR CODE HERE ####
-        intent = #### YOUR CODE HERE ####
+
+        #### YOUR CODE HERE ####
+        prepared_question =
+        #### YOUR CODE HERE ####
+        features =
+        #### YOUR CODE HERE ####
+        intent =
 
         # Chit-chat part:   
         if intent == 'dialogue':
-            # Pass question to chitchat_bot to generate a response.       
-            response = #### YOUR CODE HERE ####
+            # Pass question to chitchat_bot to generate a response.
+            #### YOUR CODE HERE ####
+            response =
             return response
         
         # Goal-oriented part:
         else:        
             # Pass features to tag_classifier to get predictions.
-            tag = #### YOUR CODE HERE ####
+            #### YOUR CODE HERE ####
+            tag =
             
             # Pass prepared_question to thread_ranker to get predictions.
-            thread_id = #### YOUR CODE HERE ####
+            #### YOUR CODE HERE ####
+            thread_id =
            
             return self.ANSWER_TEMPLATE % (tag, thread_id)
 
