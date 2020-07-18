@@ -8,11 +8,11 @@ from nltk.corpus import stopwords
 
 # Paths for all resources for the bot.
 RESOURCE_PATH = {
-    'INTENT_RECOGNIZER': 'intent_recognizer.pkl',
-    'TAG_CLASSIFIER': 'tag_classifier.pkl',
-    'TFIDF_VECTORIZER': 'tfidf_vectorizer.pkl',
-    'THREAD_EMBEDDINGS_FOLDER': 'thread_embeddings_by_tags',
-    'WORD_EMBEDDINGS': 'word_embeddings.tsv',
+    'INTENT_RECOGNIZER': 'trained/intent_recognizer.pkl',
+    'TAG_CLASSIFIER': 'trained/tag_classifier.pkl',
+    'TFIDF_VECTORIZER': 'trained/tfidf_vectorizer.pkl',
+    'THREAD_EMBEDDINGS_FOLDER': 'trained/tags_embeddings',
+    'WORD_EMBEDDINGS': 'trained/starspace_embeddings.tsv',
 }
 
 
@@ -50,11 +50,13 @@ def load_embeddings(embeddings_path):
     #### YOUR CODE HERE ####
     ########################
 
-    # remove this when you're done
-    raise NotImplementedError(
-        "Open utils.py and fill with your code. In case of Google Colab, download"
-        "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
-        "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
+    embeddings = dict()
+    for line in open(embeddings_path, encoding='utf-8'):
+        row = line.strip().split('\t')
+        embeddings[row[0]] = np.array(row[1:], dtype=np.float32)
+    embeddings_dim = embeddings[list(embeddings)[0]].shape[0]
+
+    return embeddings, embeddings_dim
 
 
 def question_to_vec(question, embeddings, dim):
@@ -65,12 +67,19 @@ def question_to_vec(question, embeddings, dim):
     ########################
     #### YOUR CODE HERE ####
     ########################
+    result = np.zeros(dim)
+    cnt = 0
+    words = question.split()
 
-    # remove this when you're done
-    raise NotImplementedError(
-        "Open utils.py and fill with your code. In case of Google Colab, download"
-        "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
-        "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
+    if words:
+      for word in words:
+          if word in embeddings:
+              result += np.array(embeddings[word])
+              cnt += 1
+
+    if cnt != 0:
+        result /= cnt
+    return result
 
 
 def unpickle_file(filename):
